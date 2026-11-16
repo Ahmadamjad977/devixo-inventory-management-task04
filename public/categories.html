@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot: a simple inventory management system for products, stock and categories.">
+  <title>Categories | StockPilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading indicator: visible until the page data has arrived -->
+  <div class="page-loader" id="pageLoader" aria-label="Loading"><div class="spinner"></div></div>
+
+  <div class="layout">
+    <!-- The sidebar and top bar are filled in by js/common.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="content">
+
+        <div class="page-head">
+          <div>
+            <h2>Categories</h2>
+            <p class="muted">Group your products. Only admins can change categories.</p>
+          </div>
+        </div>
+
+        <!-- Only admins see this form -->
+        <section class="panel add-panel" id="addPanel" hidden>
+          <form id="categoryForm" class="inline-add" novalidate>
+            <div class="form-group">
+              <label for="catName">New category</label>
+              <input type="text" id="catName" name="name" placeholder="For example: Printers">
+              <span class="error-text"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" id="catAdd">Add category</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="table-wrap" id="tableBox"></div>
+        </section>
+
+        <dialog id="renameDialog">
+          <div class="dialog-head">
+            <h3>Rename Category</h3>
+            <button type="button" class="dialog-close" data-close aria-label="Close">&#10005;</button>
+          </div>
+          <form id="renameForm" class="dialog-body" novalidate>
+            <input type="hidden" name="id">
+            <div class="form-group">
+              <label for="renameName">Category name</label>
+              <input type="text" id="renameName" name="name">
+              <span class="error-text"></span>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-light" data-close>Cancel</button>
+              <button type="submit" class="btn btn-primary" id="renameSave">Save</button>
+            </div>
+          </form>
+        </dialog>
+
+        <dialog id="deleteDialog">
+          <div class="dialog-head">
+            <h3>Delete Category</h3>
+            <button type="button" class="dialog-close" data-close aria-label="Close">&#10005;</button>
+          </div>
+          <div class="dialog-body">
+            <p id="deleteText"></p>
+            <div class="form-actions">
+              <button type="button" class="btn btn-light" data-close>Cancel</button>
+              <button type="button" class="btn btn-danger" id="deleteConfirm">Delete</button>
+            </div>
+          </div>
+        </dialog>
+      </main>
+
+      <footer class="page-footer">&copy; 2026 StockPilot. Devixo Solutions Internship, Task 04.</footer>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/categories.js"></script>
+</body>
+</html>

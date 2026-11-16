@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot: a simple inventory management system for products, stock and categories.">
+  <title>Dashboard | StockPilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading indicator: visible until the page data has arrived -->
+  <div class="page-loader" id="pageLoader" aria-label="Loading"><div class="spinner"></div></div>
+
+  <div class="layout">
+    <!-- The sidebar and top bar are filled in by js/common.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="content">
+
+        <div class="page-head">
+          <div>
+            <h2 id="welcome">Dashboard</h2>
+            <p class="muted">Here is what is happening in your inventory.</p>
+          </div>
+          <a href="products.html" class="btn btn-primary">Manage products</a>
+        </div>
+
+        <!-- Search bar: sends the search word to the products page -->
+        <form action="products.html" method="get" class="dash-search">
+          <input type="search" name="search" placeholder="Search products by name, SKU or category" aria-label="Search products">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <section class="stats-grid" id="stats" aria-label="Statistics">
+          <div class="loading-row"><div class="spinner"></div><span>Loading statistics...</span></div>
+        </section>
+
+        <div class="grid-2">
+          <section class="panel">
+            <div class="panel-head"><h3>Stock Movement (last 7 days)</h3></div>
+            <div id="movementChart"></div>
+            <div class="legend"><span class="in">Stock in</span><span class="out">Stock out</span></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head"><h3>Units by Category</h3></div>
+            <div id="categoryBars"></div>
+          </section>
+        </div>
+
+        <div class="grid-2">
+          <section class="panel">
+            <div class="panel-head">
+              <h3>Low Stock Alerts</h3>
+              <a href="products.html?status=low" class="text-link">View all</a>
+            </div>
+            <div id="lowStock"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head"><h3>Recent Activity</h3></div>
+            <ul class="activity-list" id="activityList"></ul>
+          </section>
+        </div>
+      </main>
+
+      <footer class="page-footer">&copy; 2026 StockPilot. Devixo Solutions Internship, Task 04.</footer>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

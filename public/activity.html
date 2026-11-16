@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot: a simple inventory management system for products, stock and categories.">
+  <title>Activity Log | StockPilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading indicator: visible until the page data has arrived -->
+  <div class="page-loader" id="pageLoader" aria-label="Loading"><div class="spinner"></div></div>
+
+  <div class="layout">
+    <!-- The sidebar and top bar are filled in by js/common.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="content">
+
+        <div class="page-head">
+          <div>
+            <h2>Activity Log</h2>
+            <p class="muted">Everything the team has done, newest first.</p>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="table-wrap" id="tableBox"></div>
+          <nav class="pagination" id="pagination" aria-label="Pages"></nav>
+        </section>
+      </main>
+
+      <footer class="page-footer">&copy; 2026 StockPilot. Devixo Solutions Internship, Task 04.</footer>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/activity.js"></script>
+</body>
+</html>

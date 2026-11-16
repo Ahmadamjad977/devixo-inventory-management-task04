@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot: a simple inventory management system for products, stock and categories.">
+  <title>Products | StockPilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading indicator: visible until the page data has arrived -->
+  <div class="page-loader" id="pageLoader" aria-label="Loading"><div class="spinner"></div></div>
+
+  <div class="layout">
+    <!-- The sidebar and top bar are filled in by js/common.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="content">
+
+        <div class="page-head">
+          <div>
+            <h2>Products</h2>
+            <p class="muted">Search, filter and manage your stock.</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="addBtn">+ Add Product</button>
+        </div>
+
+        <!-- Search, filters and sorting -->
+        <div class="toolbar">
+          <input type="search" id="searchInput" placeholder="Search by name, SKU or category" aria-label="Search products">
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+          <select id="statusFilter" aria-label="Filter by stock level">
+            <option value="">All stock levels</option>
+            <option value="in">In stock</option>
+            <option value="low">Low stock</option>
+            <option value="out">Out of stock</option>
+          </select>
+          <select id="sortSelect" aria-label="Sort products">
+            <option value="newest">Newest first</option>
+            <option value="name">Name A to Z</option>
+            <option value="price_low">Price: low to high</option>
+            <option value="price_high">Price: high to low</option>
+            <option value="stock_low">Stock: low to high</option>
+            <option value="stock_high">Stock: high to low</option>
+          </select>
+          <button type="button" class="btn btn-light" id="resetBtn">Reset</button>
+        </div>
+
+        <section class="panel">
+          <p class="result-info" id="resultInfo"></p>
+          <div class="table-wrap" id="tableBox"></div>
+          <nav class="pagination" id="pagination" aria-label="Pages"></nav>
+        </section>
+
+        <!-- Add / edit product -->
+        <dialog id="productDialog">
+          <div class="dialog-head">
+            <h3 id="productDialogTitle">Add Product</h3>
+            <button type="button" class="dialog-close" data-close aria-label="Close">&#10005;</button>
+          </div>
+          <form id="productForm" class="dialog-body" novalidate>
+            <input type="hidden" name="id">
+            <div class="form-grid">
+              <div class="form-group form-wide">
+                <label for="pName">Product name</label>
+                <input type="text" id="pName" name="name" placeholder="Wireless Mouse">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group">
+                <label for="pSku">SKU</label>
+                <input type="text" id="pSku" name="sku" placeholder="ACC-1001">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group">
+                <label for="pCategory">Category</label>
+                <select id="pCategory" name="category_id">
+                  <option value="">No category</option>
+                </select>
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group">
+                <label for="pPrice">Price (Rs.)</label>
+                <input type="number" id="pPrice" name="price" min="0" step="0.01" placeholder="1850">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group" id="quantityGroup">
+                <label for="pQuantity">Opening stock</label>
+                <input type="number" id="pQuantity" name="quantity" min="0" step="1" placeholder="0">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group">
+                <label for="pReorder">Reorder level</label>
+                <input type="number" id="pReorder" name="reorder_level" min="0" step="1" placeholder="5">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group form-wide">
+                <label for="pDescription">Description <span class="optional">(optional)</span></label>
+                <textarea id="pDescription" name="description" rows="3" maxlength="500" placeholder="Short description"></textarea>
+                <span class="error-text"></span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-light" data-close>Cancel</button>
+              <button type="submit" class="btn btn-primary" id="productSave">Save Product</button>
+            </div>
+          </form>
+        </dialog>
+
+        <!-- Stock in / stock out -->
+        <dialog id="stockDialog">
+          <div class="dialog-head">
+            <h3>Update Stock</h3>
+            <button type="button" class="dialog-close" data-close aria-label="Close">&#10005;</button>
+          </div>
+          <div class="dialog-body">
+            <p id="stockProduct"></p>
+            <form id="stockForm" novalidate>
+              <input type="hidden" name="id">
+              <div class="radio-row">
+                <label><input type="radio" name="type" value="in" checked> Stock in</label>
+                <label><input type="radio" name="type" value="out"> Stock out</label>
+              </div>
+              <div class="form-group">
+                <label for="sQuantity">Quantity</label>
+                <input type="number" id="sQuantity" name="quantity" min="1" step="1" placeholder="10">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-group">
+                <label for="sNote">Note <span class="optional">(optional)</span></label>
+                <input type="text" id="sNote" name="note" maxlength="200" placeholder="Supplier delivery, customer order...">
+                <span class="error-text"></span>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-light" data-close>Cancel</button>
+                <button type="submit" class="btn btn-primary" id="stockSave">Update Stock</button>
+              </div>
+            </form>
+            <div class="history">
+              <h4>Recent stock history</h4>
+              <ul id="stockHistory"></ul>
+            </div>
+          </div>
+        </dialog>
+
+        <!-- Delete confirmation (admin) -->
+        <dialog id="deleteDialog">
+          <div class="dialog-head">
+            <h3>Delete Product</h3>
+            <button type="button" class="dialog-close" data-close aria-label="Close">&#10005;</button>
+          </div>
+          <div class="dialog-body">
+            <p id="deleteText"></p>
+            <div class="form-actions">
+              <button type="button" class="btn btn-light" data-close>Cancel</button>
+              <button type="button" class="btn btn-danger" id="deleteConfirm">Delete</button>
+            </div>
+          </div>
+        </dialog>
+      </main>
+
+      <footer class="page-footer">&copy; 2026 StockPilot. Devixo Solutions Internship, Task 04.</footer>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

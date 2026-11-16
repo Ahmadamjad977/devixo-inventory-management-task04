@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot: a simple inventory management system for products, stock and categories.">
+  <title>Register | StockPilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark">SP</span>
+        <h1>StockPilot</h1>
+        <p class="muted">Inventory Management System</p>
+      </div>
+
+      <div class="alert alert-error" id="formError" role="alert" hidden></div>
+
+      <h2 class="auth-title">Create an account</h2>
+
+      <form id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="name">
+          <span class="error-text"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="username">
+          <span class="error-text"></span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Create a strong password" autocomplete="new-password">
+          <span class="error-text"></span>
+        </div>
+        <ul class="password-rules" id="passwordRules" aria-label="Password rules">
+          <li data-rule="length">At least 8 characters</li>
+          <li data-rule="lower">One lowercase letter</li>
+          <li data-rule="upper">One uppercase letter</li>
+          <li data-rule="number">One number</li>
+        </ul>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat the password" autocomplete="new-password">
+          <span class="error-text"></span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="registerBtn">Register</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
