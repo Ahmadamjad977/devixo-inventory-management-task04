@@ -7,8 +7,6 @@ StockPilot is a full-stack Inventory Management System. Staff can log in, manage
 
 It is built with **HTML, CSS and vanilla JavaScript** (frontend), **Node.js and Express** (backend API) and **PostgreSQL** (database). No frontend framework is used.
 
-**Live demo:** https://devixo-inventory-management-task04.vercel.app (after you deploy, see "Deployment")
-
 ## Features
 
 ### Authentication
